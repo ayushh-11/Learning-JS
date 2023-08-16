@@ -1,0 +1,21 @@
+#container{
+    margin:100px 200px;
+}
+#addbtn{
+    background-color: rgb(41, 158, 236);
+    border-radius: 7px;
+    border-style: none;
+    height:40px;
+    margin:10px 0px;
+
+}
+#output{
+    display:flex;
+    flex-wrap: wrap;
+
+}
+#output div{
+    margin:10px;
+    
+    background-color: rgb(178, 238, 238);
+}
