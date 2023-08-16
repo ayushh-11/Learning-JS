@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: blue;
+    }
+
+    #gaming-area {
+        border-style: solid;
+        height: 500px;
+        width: 390px;
+        margin: 5rem auto;
+        background: url('bgimg.jpg') center center/cover;
+    }
+
+    #mycar {
+
+        width: 70px;
+        height: 100px;
+        
+        background: url('race.png') center center/cover;
+        margin: 0 10px;
+        position: relative;
+        top: 380px;
+        left: 0px;
+        z-index: 2;
+    }
+
+    #obstaclecar {
+
+        
+        width: 65px;
+        height: 143px;
+        background: url('blue.png') center center/cover;
+        margin: 0 10px;
+        position: relative;
+        top: -240px;
+        animation: move;
+        animation: move 1s linear infinite;
+        left: 0px;
+    }
+    #result{
+        display: none;
+        position: absolute;
+        width:35vw;
+        height:70vh;
+        top:80px;
+        right:500px;
+        background-color: brown;
+        text-align: center;
+        padding-top:150px;
+        z-index:3;
+    }
+    #btn{
+        background-color: aquamarine;
+        cursor: pointer;
+        
+    }
+
+    @keyframes move {
+        0% {
+            top: -240px;
+        }
+
+        100% {
+            top: 500px;
+        }
+    }
+</style>
+
+<body>
+    <div id="gaming-area">
+        <div id="mycar"></div>
+        <div id="obstaclecar"></div>
+    </div>
+    <div id="result">
+        <h1>Game is Over</h1>
+        your score is <span id="score"></span>
+        <br>
+        <btn id="btn" onclick="location.reload()">restart</btn>
+    </div>
+</body>
+<script>
+    let bluecar = document.getElementById('obstaclecar')
+    let mycar = document.getElementById('mycar')
+    bluecar.addEventListener("animationiteration", () => {
+        let random = Math.floor(Math.random() * 4)
+
+        bluecar.style.left = random * 100 + "px"
+    })
+
+    window.addEventListener('keydown', (e) => {
+        let leftcar = parseInt(window.getComputedStyle(mycar).left)
+
+        if (e.keyCode == 39) {
+
+            if (leftcar < 300) {
+
+                mycar.style.left = (leftcar + 100) + "px"
+            }
+        }
+        if (e.keyCode == 37) {
+
+            if (leftcar > 0) {
+
+                mycar.style.left = (leftcar - 100) + "px"
+            }
+        }
+
+    })
+    let scr=0
+    let time =setInterval (() => {
+        let leftbluecar = parseInt(window.getComputedStyle(bluecar).left)
+        let topbluecar = parseInt(window.getComputedStyle(bluecar).top)
+        let leftcar = parseInt(window.getComputedStyle(mycar).left)
+        console.log(topbluecar)
+        scr++
+        if (leftcar == leftbluecar && topbluecar >= 130) {
+            console.log('hello')
+        document.getElementById('result').style.display="block"
+        
+        console.log(scr)
+        document.getElementById('score').innerHTML=scr
+        document.getElementById('obstaclecar').style.webkitAnimationPlayState="paused"
+
+        clearInterval(time)
+        
+        }
+    }, 100)
+
+
+
+
+</script>
+
+</html>
